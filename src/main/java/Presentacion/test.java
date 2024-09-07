@@ -27,14 +27,14 @@ public class test {
             
             ClientesDAO c = new ClientesDAO(a);
             
-            guardarClienteDTO cl = new guardarClienteDTO("Romina", "Meza", "Galindo");
+            clienteEntidad cl = new clienteEntidad(2, "Romina", "Meza", "Galindo", 1);
             
-            c.guardarCliente( cl);
+//            c.guardarCliente( cl);
+//            c.editarCliente( cl);
+            c.eliminarCliente( cl);
         } catch (PersistenciaException ex) {
             Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SQLException ex) {
-            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        } 
         
         
     }

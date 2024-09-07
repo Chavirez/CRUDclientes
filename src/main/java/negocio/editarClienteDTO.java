@@ -2,25 +2,39 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Entidades;
+package negocio;
+
+import Entidades.*;
 
 /**
  *
  * @author santi
  */
-public class guardarClienteDTO {
+public class editarClienteDTO {
     
+    int id;
     String nombres;
     String aPaterno;
     String aMaterno;
+    int estatus;
 
-    public guardarClienteDTO() {
+    public editarClienteDTO() {
     }
 
-    public guardarClienteDTO(String nombres, String aPaterno, String aMaterno) {
+    public editarClienteDTO(int id, String nombres, String aPaterno, String aMaterno, int estatus) {
+        this.id = id;
         this.nombres = nombres;
         this.aPaterno = aPaterno;
         this.aMaterno = aMaterno;
+        this.estatus = estatus;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNombres() {
@@ -47,11 +61,17 @@ public class guardarClienteDTO {
         this.aMaterno = aMaterno;
     }
 
+    public int getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(int estatus) {
+        this.estatus = estatus;
+    }
+
     @Override
     public String toString() {
-        return "guardarClienteDTO{" + "nombres=" + nombres + ", aPaterno=" + aPaterno + ", aMaterno=" + aMaterno + '}';
-    }
-    
-    
+        return "editarClienteDTO{" + "id=" + id + ", nombres=" + nombres + ", aPaterno=" + aPaterno + ", aMaterno=" + aMaterno + ", estatus=" + estatus + '}';
+    }    
     
 }
