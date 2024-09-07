@@ -8,13 +8,35 @@ package Presentacion;
  *
  * @author santi
  */
+
+import Persistencia.*;
+import Entidades.*;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class test {
 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        
+        try {
+            ConexionBD a = new ConexionBD();
+            
+            ClientesDAO c = new ClientesDAO(a);
+            
+            guardarClienteDTO cl = new guardarClienteDTO("Romina", "Meza", "Galindo");
+            
+            c.guardarCliente( cl);
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
     }
     
 }
