@@ -65,12 +65,7 @@ public class FrmCrud extends javax.swing.JFrame {
         setTitle("Listado de Clietnes");
 
         tabClientes.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
+            new Object [][] {},
             new String [] {
                 "ID", "Nombres", "Apellido Paterno", "Apellido Materno", "Estatus"
             }
