@@ -23,8 +23,8 @@ public class FrmCrud extends javax.swing.JFrame {
         clienteNegocio = new ClienteNegocio();
         setSize(800, 600);
         initComponents();
-        cargarDatosBD();
         configurarTabla();
+        cargarDatosBD();
     }
 
     public void cargarDatosBD() {
@@ -72,7 +72,7 @@ public class FrmCrud extends javax.swing.JFrame {
                 {null, null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "ID", "Nombres", "Apellido Paterno", "Apellido Materno", "Estatus"
             }
         ));
         jScrollPane1.setViewportView(tabClientes);
