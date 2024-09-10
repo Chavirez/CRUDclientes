@@ -130,13 +130,11 @@ public class frmACliente extends javax.swing.JFrame {
         String apellidoMaterno = txtAMaterno.getText();
 
         try {
-            //guardarClienteDTO cliente = new guardarClienteDTO(nombres, apellidoPaterno, apellidoMaterno);
             guardarClienteDTO cliente = new guardarClienteDTO();
             cliente.setNombres(nombres);
             cliente.setaPaterno(apellidoPaterno);
             cliente.setaMaterno(apellidoMaterno);
 
-            
             ConexionBD conexion = new ConexionBD();
             ClientesDAO clientesBD = new ClientesDAO(conexion);
             clientesBD.guardarCliente(cliente);
@@ -145,6 +143,9 @@ public class frmACliente extends javax.swing.JFrame {
                     + apellidoPaterno + " " + apellidoMaterno
                     + " Se ha agregado correctamente.", "Success",
                     JOptionPane.INFORMATION_MESSAGE);
+
+            FrmCrud frmCrud = new FrmCrud();
+            frmCrud.setVisible(true);
             this.dispose();
 
         } catch (Exception e) {

@@ -5,9 +5,11 @@
 package Presentacion;
 
 import DTOs.clienteDTO;
-import Entidades.clienteEntidad;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 import javax.swing.table.DefaultTableModel;
 import negocio.ClienteNegocio;
 
@@ -26,6 +28,8 @@ public class FrmCrud extends javax.swing.JFrame {
         initComponents();
         configurarTabla();
         cargarDatosBD();
+
+        //actualizarTimerBD();
     }
 
     public void cargarDatosBD() {
@@ -49,6 +53,27 @@ public class FrmCrud extends javax.swing.JFrame {
     public void configurarTabla() {
         // Configura el modelo de la tabla
         modeloTabla = (DefaultTableModel) tabClientes.getModel();
+    }
+
+    public void actualizarTimerBD() {
+        if (temporizador != null) {
+            temporizador.stop();
+        }
+
+        temporizador = new Timer(500, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    cargarDatosBD();
+                } catch (Exception ex) {
+                    System.out.println(ex);
+                }
+
+            }
+        });
+
+        temporizador.start();
+
     }
 
     /**
@@ -143,6 +168,7 @@ public class FrmCrud extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         frmACliente agregarCliente = new frmACliente();
         agregarCliente.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     /**
@@ -189,4 +215,5 @@ public class FrmCrud extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private DefaultTableModel modeloTabla;
     private ClienteNegocio clienteNegocio;
+    private Timer temporizador;
 }
