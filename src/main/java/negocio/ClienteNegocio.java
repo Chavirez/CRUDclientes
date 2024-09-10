@@ -9,6 +9,7 @@ import Entidades.clienteEntidad;
 import Persistencia.ClientesDAO;
 import Persistencia.ConexionBD;
 import Persistencia.PersistenciaException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -65,6 +66,38 @@ public class ClienteNegocio{
         }
     }
     
+    public List<clienteDTO> obtenerClientesFiltrados(String filtro) throws NegocioException {
+        
+        try {
+            
+            List<clienteEntidad> lista = clientesDAO.buscarClientesFiltrados(filtro);;
+           
+            List<clienteDTO> clientes = new ArrayList<>();
+            AtomicInteger counter = new AtomicInteger(0);
+            if (lista == null)  {
+                 return clientes;}
+            else { 
+            lista.forEach(row ->
+            {
+                try {
+                    int index = counter.getAndIncrement();
+                    System.out.println(lista.get(index).toString());
+                    clientes.add(convertirAclienteDTO(lista.get(index)));
+                } catch (PersistenciaException ex) {
+                    Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+                 }
+
+            });
+
+            return clientes;
+            
+          }  
+        } catch (PersistenciaException ex) {
+            Logger.getLogger(ClienteNegocio.class.getName()).log(Level.SEVERE, null, ex);
+            throw new NegocioException("Error al convertir la entidad de clientes a DTO");
+        }
+    }    
+    
     public void editarCliente(clienteDTO cliente) throws NegocioException{
     
         try {
@@ -97,7 +130,8 @@ public class ClienteNegocio{
         String aPaterno = cliente.getaPaterno();
         String aMaterno = cliente.getaMaterno();
         int estatus = cliente.getEstatus();
-        return new clienteDTO(idcliente, nombres, aPaterno, aMaterno, estatus);
+        Timestamp fecha = cliente.getFechaRegistro();
+        return new clienteDTO(idcliente, nombres, aPaterno, aMaterno, estatus, fecha);
     }
     
     public editarClienteDTO convertirAeditarDTO(clienteDTO cliente) throws PersistenciaException {

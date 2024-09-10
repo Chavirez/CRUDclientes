@@ -9,9 +9,11 @@ import DTOs.editarClienteDTO;
 import DTOs.guardarClienteDTO;
 import Entidades.*;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -140,10 +142,12 @@ public class ClientesDAO implements IClientesDAO {
 
             List<clienteEntidad> clienteLista = null;
 
+            filtro = filtro + "%";
+            
             Connection conexion = this.conexionBD.crearConexion();
 
             String codigoSQL = "select idcliente, nombres, apellidoPaterno, apellidoMaterno, estaEliminado, fechaHoraRegistro from clientes"
-                    + " where nombres like '?' or apellidoPaterno like '?' or apellidoMaterno '?' ";
+                    + " where nombres like ? or apellidoPaterno like ?  or apellidoMaterno like ?  ";
 
             PreparedStatement preparedStatement = conexion.prepareStatement(codigoSQL);
             preparedStatement.setString(1, filtro);
@@ -176,7 +180,8 @@ public class ClientesDAO implements IClientesDAO {
             String aPaterno = resultado.getString("apellidoPaterno");
             String aMaterno = resultado.getString("apellidoMaterno");
             int estatus = resultado.getInt("estaEliminado");
-            return new clienteEntidad(idcliente, nombres, aPaterno, aMaterno, estatus);
+            Timestamp fecha = resultado.getTimestamp("fechaHoraRegistro");
+            return new clienteEntidad(idcliente, nombres, aPaterno, aMaterno, estatus, fecha);
         } catch (SQLException ex) {
             Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
             throw new PersistenciaException("Error al convertir los resultados a entidad");

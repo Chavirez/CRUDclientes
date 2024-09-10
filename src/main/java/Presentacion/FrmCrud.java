@@ -10,8 +10,13 @@ import java.awt.event.ActionListener;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 import negocio.ClienteNegocio;
+import utilerias.JButtonCellEditor;
+import utilerias.JButtonRenderer;
 
 /**
  *
@@ -24,14 +29,15 @@ public class FrmCrud extends javax.swing.JFrame {
      */
     public FrmCrud() {
         clienteNegocio = new ClienteNegocio();
-        setSize(800, 600);
+        
         initComponents();
+        setSize(1500, 600);
         configurarTabla();
         cargarDatosBD();
 
         //actualizarTimerBD();
     }
-
+    
     public void cargarDatosBD() {
         try {
             List<clienteDTO> listaClientes = clienteNegocio.obtenerClientes();
@@ -42,17 +48,95 @@ public class FrmCrud extends javax.swing.JFrame {
                     cliente.getNombres(),
                     cliente.getaPaterno(),
                     cliente.getaMaterno(),
-                    cliente.getEstatus() == 1 ? "Eliminado" : "Activo"
+                    cliente.getEstatus() == 1 ? "Eliminado" : "Activo",
+                    cliente.getFechaRegistro()
                 });
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage());
         }
     }
+    
+    public void cargarDatosBDFiltrado() {
+        try {
+            modeloTabla.setRowCount(0);
+            List<clienteDTO> listaClientes = clienteNegocio.obtenerClientesFiltrados(fldFiltro.getText());
+            if (listaClientes.isEmpty()){
+            return;
+            }
+            else { 
+            listaClientes.get(0).toString();
+            for (clienteDTO cliente : listaClientes) {
+                modeloTabla.addRow(new Object[]{
+                    cliente.getId(),
+                    cliente.getNombres(),
+                    cliente.getaPaterno(),
+                    cliente.getaMaterno(),
+                    cliente.getEstatus() == 1 ? "Eliminado" : "Activo",
+                    cliente.getFechaRegistro()
+                });
+            }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Error al cargar los datos: " + e.getMessage());
+        }
+    }    
 
     public void configurarTabla() {
+        
+                fldFiltro.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                onTextChanged();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                onTextChanged();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                onTextChanged();
+            }
+
+            // Método que se llama cada vez que se escribe o elimina un carácter
+            private void onTextChanged() {
+                cargarDatosBDFiltrado();
+            }
+        });    
+        
         // Configura el modelo de la tabla
         modeloTabla = (DefaultTableModel) tabClientes.getModel();
+        
+        ActionListener onEditarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+              editarAP();
+                
+            }               
+        };
+            
+        TableColumnModel modeloColumnas = this.tabClientes.getColumnModel();
+        modeloColumnas.getColumn(6).setCellRenderer(new JButtonRenderer("Editar"));
+        modeloColumnas.getColumn(6).setCellEditor(new JButtonCellEditor("Editar",onEditarClickListener));
+        
+        ActionListener onEliminarClickListener = new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+              eliminarAP();
+                
+            }               
+        };
+            
+        
+        modeloColumnas.getColumn(7).setCellRenderer(new JButtonRenderer("Eliminar"));
+        modeloColumnas.getColumn(7).setCellEditor(new JButtonCellEditor("Eliminar",onEliminarClickListener));        
+        
     }
 
     public void actualizarTimerBD() {
@@ -76,6 +160,24 @@ public class FrmCrud extends javax.swing.JFrame {
 
     }
 
+    public void editarAP(){
+    
+        FrmEditarCliente editarCliente = new FrmEditarCliente();
+        editarCliente.setVisible(true);
+        this.dispose();
+        
+    }
+    
+    public void eliminarAP(){
+    
+        FrmEliminarCliente eliminarCliente = new FrmEliminarCliente();
+        eliminarCliente.setVisible(true);
+        this.dispose();
+        
+    }
+    
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -87,10 +189,9 @@ public class FrmCrud extends javax.swing.JFrame {
 
         tblRegistros = new javax.swing.JScrollPane();
         tabClientes = new javax.swing.JTable();
-        btnEliminar = new javax.swing.JButton();
-        btnEditar = new javax.swing.JButton();
         btnAgregar = new javax.swing.JButton();
         txtTituloVentana = new javax.swing.JLabel();
+        fldFiltro = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Listado de Clietnes");
@@ -99,24 +200,10 @@ public class FrmCrud extends javax.swing.JFrame {
         tabClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {},
             new String [] {
-                "ID", "Nombres", "Apellido Paterno", "Apellido Materno", "Estatus"
+                "ID", "Nombres", "Apellido Paterno", "Apellido Materno", "Estatus", "Fecha Registro", "Editar", "Eliminar"
             }
         ));
         tblRegistros.setViewportView(tabClientes);
-
-        btnEliminar.setText("Eliminar Cliente");
-        btnEliminar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEliminarActionPerformed(evt);
-            }
-        });
-
-        btnEditar.setText("Editar Cliente");
-        btnEditar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnEditarActionPerformed(evt);
-            }
-        });
 
         btnAgregar.setText("Agregar Cliente");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -133,17 +220,13 @@ public class FrmCrud extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(28, 28, 28)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(fldFiltro)
                     .addComponent(txtTituloVentana, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(btnEliminar)
-                        .addGap(24, 24, 24)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(24, 24, 24)
-                        .addComponent(btnAgregar))
-                    .addComponent(tblRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, 560, Short.MAX_VALUE))
+                    .addComponent(tblRegistros, javax.swing.GroupLayout.DEFAULT_SIZE, 972, Short.MAX_VALUE)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(28, 28, 28))
         );
         layout.setVerticalGroup(
@@ -151,31 +234,18 @@ public class FrmCrud extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(15, 15, 15)
                 .addComponent(txtTituloVentana, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 65, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addComponent(fldFiltro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tblRegistros, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnEliminar)
-                    .addComponent(btnEditar)
-                    .addComponent(btnAgregar))
+                .addComponent(btnAgregar)
                 .addGap(13, 13, 13))
         );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        FrmEliminarCliente eliminarCliente = new FrmEliminarCliente();
-        eliminarCliente.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
-        FrmEditarCliente editarCliente = new FrmEditarCliente();
-        editarCliente.setVisible(true);
-        this.dispose();
-    }//GEN-LAST:event_btnEditarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         frmACliente agregarCliente = new frmACliente();
@@ -220,8 +290,7 @@ public class FrmCrud extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
-    private javax.swing.JButton btnEditar;
-    private javax.swing.JButton btnEliminar;
+    private javax.swing.JTextField fldFiltro;
     private javax.swing.JTable tabClientes;
     private javax.swing.JScrollPane tblRegistros;
     private javax.swing.JLabel txtTituloVentana;

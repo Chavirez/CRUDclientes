@@ -4,6 +4,9 @@
  */
 package DTOs;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  *
  * @author santi
@@ -15,17 +18,29 @@ public class clienteDTO {
     String aPaterno;
     String aMaterno;
     int estatus;
+    Timestamp fechaRegistro;
 
     public clienteDTO() {
     }
 
-    public clienteDTO(int id, String nombres, String aPaterno, String aMaterno, int eliminado) {
+    public clienteDTO(int id, String nombres, String aPaterno, String aMaterno, int estatus, Timestamp fechaRegistro) {
         this.id = id;
         this.nombres = nombres;
         this.aPaterno = aPaterno;
         this.aMaterno = aMaterno;
-        this.estatus = eliminado;
+        this.estatus = estatus;
+        this.fechaRegistro = fechaRegistro;
     }
+
+    public Timestamp getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Timestamp fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+
 
     public int getId() {
         return id;

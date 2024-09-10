@@ -4,6 +4,9 @@
  */
 package Entidades;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+
 /**
  *
  * @author santi
@@ -15,17 +18,21 @@ public class clienteEntidad {
     String aPaterno;
     String aMaterno;
     int estatus;
+    Timestamp fechaRegistro;
 
     public clienteEntidad() {
     }
 
-    public clienteEntidad(int id, String nombres, String aPaterno, String aMaterno, int eliminado) {
+    public clienteEntidad(int id, String nombres, String aPaterno, String aMaterno, int estatus, Timestamp fechaRegistro) {
         this.id = id;
         this.nombres = nombres;
         this.aPaterno = aPaterno;
         this.aMaterno = aMaterno;
-        this.estatus = eliminado;
+        this.estatus = estatus;
+        this.fechaRegistro = fechaRegistro;
     }
+
+    
 
     public int getId() {
         return id;
@@ -67,9 +74,18 @@ public class clienteEntidad {
         this.estatus = estatus;
     }
 
+    public Timestamp getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    public void setFechaRegistro(Timestamp fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
     @Override
     public String toString() {
-        return "clienteEntidad{" + "id=" + id + ", nombre=" + nombres + ", aPaterno=" + aPaterno + ", aMaterno=" + aMaterno + ", estatus=" + estatus + '}';
+        return "clienteEntidad{" + "id=" + id + ", nombres=" + nombres + ", aPaterno=" + aPaterno + ", aMaterno=" + aMaterno + ", estatus=" + estatus + ", fechaRegistro=" + fechaRegistro + '}';
     }
-    
+
+
 }
