@@ -131,6 +131,43 @@ public class ClientesDAO implements IClientesDAO {
         }
 
     }
+    
+    @Override
+    public List<clienteEntidad> buscarClientesFiltrados(String filtro) throws PersistenciaException {
+    
+        try {
+            
+            List<clienteEntidad> clienteLista = null;
+            
+            Connection conexion = this.conexionBD.crearConexion();
+            
+            String codigoSQL = "select idcliente, nombres, apellidoPaterno, apellidoMaterno, estaEliminado, fechaHoraRegistro from clientes"
+                            + " where nombres like '?' or apellidoPaterno like '?' or apellidoMaterno '?' ";
+            
+            
+            PreparedStatement preparedStatement = conexion.prepareStatement(codigoSQL);
+            preparedStatement.setString(1, filtro);
+            preparedStatement.setString(2, filtro);
+            preparedStatement.setString(3, filtro);
+            ResultSet resultado = preparedStatement.executeQuery();
+            
+            while (resultado.next()) {
+                if (clienteLista == null) {
+                    clienteLista = new ArrayList<>();
+                }
+                clienteEntidad cliente = this.convertirAEntidad(resultado);
+                clienteLista.add(cliente);
+            }
+            conexion.close();
+            return clienteLista;
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(ClientesDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new PersistenciaException("Ocurrió un error al leer la base de datos, inténtelo de nuevo y si el error persiste comuníquese con el encargado del sistema.");
+        }
+            
+    }    
+        
 
     @Override
     public clienteEntidad convertirAEntidad(ResultSet resultado) throws PersistenciaException {

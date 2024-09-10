@@ -27,4 +27,6 @@ public interface IClientesDAO {
 
     public clienteEntidad convertirAEntidad(ResultSet resultado) throws PersistenciaException;    
     
+    public List<clienteEntidad> buscarClientesFiltrados(String filtro) throws PersistenciaException;
+    
 }
