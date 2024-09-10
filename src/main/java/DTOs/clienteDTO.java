@@ -2,15 +2,13 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package negocio;
-
-import Entidades.*;
+package DTOs;
 
 /**
  *
  * @author santi
  */
-public class editarClienteDTO {
+public class clienteDTO {
     
     int id;
     String nombres;
@@ -18,15 +16,15 @@ public class editarClienteDTO {
     String aMaterno;
     int estatus;
 
-    public editarClienteDTO() {
+    public clienteDTO() {
     }
 
-    public editarClienteDTO(int id, String nombres, String aPaterno, String aMaterno, int estatus) {
+    public clienteDTO(int id, String nombres, String aPaterno, String aMaterno, int eliminado) {
         this.id = id;
         this.nombres = nombres;
         this.aPaterno = aPaterno;
         this.aMaterno = aMaterno;
-        this.estatus = estatus;
+        this.estatus = eliminado;
     }
 
     public int getId() {
@@ -41,8 +39,8 @@ public class editarClienteDTO {
         return nombres;
     }
 
-    public void setNombres(String nombres) {
-        this.nombres = nombres;
+    public void setNombres(String nombre) {
+        this.nombres = nombre;
     }
 
     public String getaPaterno() {
@@ -71,7 +69,8 @@ public class editarClienteDTO {
 
     @Override
     public String toString() {
-        return "editarClienteDTO{" + "id=" + id + ", nombres=" + nombres + ", aPaterno=" + aPaterno + ", aMaterno=" + aMaterno + ", estatus=" + estatus + '}';
-    }    
+        return "clienteEntidad{" + "id=" + id + ", nombre=" + nombres + ", aPaterno=" + aPaterno + ", aMaterno=" + aMaterno + ", estatus=" + estatus + '}';
+    }
+        
     
 }

@@ -4,6 +4,9 @@
  */
 package Persistencia;
 
+import DTOs.clienteDTO;
+import DTOs.editarClienteDTO;
+import DTOs.guardarClienteDTO;
 import Entidades.*;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -35,7 +38,7 @@ public class ClientesDAO implements IClientesDAO {
     }
 
     @Override
-    public void guardarCliente(clienteEntidad cliente) throws PersistenciaException {
+    public void guardarCliente(guardarClienteDTO cliente) throws PersistenciaException {
         try {
 
             Connection conexion = this.conexionBD.crearConexion();
@@ -56,7 +59,7 @@ public class ClientesDAO implements IClientesDAO {
     }
 
     @Override
-    public void editarCliente(clienteEntidad cliente) throws PersistenciaException {
+    public void editarCliente(editarClienteDTO cliente) throws PersistenciaException {
         try {
 
             Connection conexion = this.conexionBD.crearConexion();
@@ -66,14 +69,12 @@ public class ClientesDAO implements IClientesDAO {
                     + "nombres = ?,\n"
                     + "apellidoPaterno = ?,\n"
                     + "apellidoMaterno = ?,\n"
-                    + "estaEliminado = ?\n"
                     + "WHERE idcliente = ?;";
             PreparedStatement preparedStatement = conexion.prepareStatement(codigoSQL);
             preparedStatement.setString(1, cliente.getNombres());
             preparedStatement.setString(2, cliente.getaPaterno());
             preparedStatement.setString(3, cliente.getaMaterno());
-            preparedStatement.setInt(4, cliente.getEstatus());
-            preparedStatement.setInt(5, cliente.getId());
+            preparedStatement.setInt(4, cliente.getId());
             preparedStatement.execute();
             conexion.close();
         } catch (SQLException ex) {
@@ -83,7 +84,7 @@ public class ClientesDAO implements IClientesDAO {
     }
 
     @Override
-    public void eliminarCliente(clienteEntidad cliente) throws PersistenciaException {
+    public void eliminarCliente(clienteDTO cliente) throws PersistenciaException {
         try {
 
             Connection conexion = this.conexionBD.crearConexion();
