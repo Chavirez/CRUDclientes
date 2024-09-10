@@ -6,6 +6,7 @@ package Presentacion;
 
 import DTOs.guardarClienteDTO;
 import Persistencia.ClientesDAO;
+import Persistencia.ConexionBD;
 import javax.swing.JOptionPane;
 
 /**
@@ -135,7 +136,9 @@ public class frmACliente extends javax.swing.JFrame {
             cliente.setaPaterno(apellidoPaterno);
             cliente.setaMaterno(apellidoMaterno);
 
-            ClientesDAO clientesBD = new ClientesDAO();
+            
+            ConexionBD conexion = new ConexionBD();
+            ClientesDAO clientesBD = new ClientesDAO(conexion);
             clientesBD.guardarCliente(cliente);
 
             JOptionPane.showMessageDialog(this, "El cliente " + nombres + " "
