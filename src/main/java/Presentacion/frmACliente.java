@@ -4,6 +4,10 @@
  */
 package Presentacion;
 
+import DTOs.guardarClienteDTO;
+import Persistencia.ClientesDAO;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author santi
@@ -26,57 +30,139 @@ public class frmACliente extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        lblTituloVentana = new javax.swing.JLabel();
+        txtNombres = new javax.swing.JTextField();
+        lblNombres = new javax.swing.JLabel();
+        txtAPaterno = new javax.swing.JTextField();
+        lblAPaterno = new javax.swing.JLabel();
+        txtAMaterno = new javax.swing.JTextField();
+        lblAMaterno = new javax.swing.JLabel();
+        btnAceptar = new javax.swing.JButton();
+        btnCancelar = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
+
+        lblTituloVentana.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblTituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTituloVentana.setText("Agregar Cliente");
+
+        lblNombres.setText("Nombre(s)");
+
+        lblAPaterno.setText("Apellido Paterno");
+
+        lblAMaterno.setText("Apellido Materno");
+
+        btnAceptar.setText("Aceptar");
+        btnAceptar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAceptarActionPerformed(evt);
+            }
+        });
+
+        btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnCancelar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
+                        .addComponent(btnAceptar))
+                    .addComponent(lblTituloVentana, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblAMaterno, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblAPaterno, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtAPaterno, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtAMaterno, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblNombres, javax.swing.GroupLayout.Alignment.LEADING))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblTituloVentana, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lblNombres)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblAPaterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(lblAMaterno)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnAceptar)
+                    .addComponent(btnCancelar))
+                .addGap(20, 20, 20))
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(frmACliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(frmACliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(frmACliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(frmACliente.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        this.txtNombres.setText("");
+        this.txtAPaterno.setText("");
+        this.txtAMaterno.setText("");
+        this.dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new frmACliente().setVisible(true);
-            }
-        });
-    }
+    private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
+
+        String nombres = txtNombres.getText();
+        String apellidoPaterno = txtAPaterno.getText();
+        String apellidoMaterno = txtAMaterno.getText();
+
+        try {
+            //guardarClienteDTO cliente = new guardarClienteDTO(nombres, apellidoPaterno, apellidoMaterno);
+            guardarClienteDTO cliente = new guardarClienteDTO();
+            cliente.setNombres(nombres);
+            cliente.setaPaterno(apellidoPaterno);
+            cliente.setaMaterno(apellidoMaterno);
+
+            ClientesDAO clientesBD = new ClientesDAO();
+            clientesBD.guardarCliente(cliente);
+
+            JOptionPane.showMessageDialog(this, "El cliente " + nombres + " "
+                    + apellidoPaterno + " " + apellidoMaterno
+                    + " Se ha agregado correctamente.", "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+            this.dispose();
+
+        } catch (Exception e) {
+            System.out.println(" ERROR ERROR ERROR " + e + " ERROR ERROR ERROR");
+            JOptionPane.showMessageDialog(this,
+                    "Ocurrio un error al agregar el cliente",
+                    "ERROR de logica", JOptionPane.ERROR_MESSAGE);
+            this.dispose();
+        }
+    }//GEN-LAST:event_btnAceptarActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAceptar;
+    private javax.swing.JButton btnCancelar;
+    private javax.swing.JLabel lblAMaterno;
+    private javax.swing.JLabel lblAPaterno;
+    private javax.swing.JLabel lblNombres;
+    private javax.swing.JLabel lblTituloVentana;
+    private javax.swing.JTextField txtAMaterno;
+    private javax.swing.JTextField txtAPaterno;
+    private javax.swing.JTextField txtNombres;
     // End of variables declaration//GEN-END:variables
 }

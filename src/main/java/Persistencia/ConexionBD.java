@@ -19,7 +19,7 @@ public class ConexionBD implements IConexionBD {
     final String BASE_DATOS = "crud";
     private final String CADENA_CONEXION = "jdbc:mysql://" + SERVER + "/" + BASE_DATOS;
     final String USUARIO = "root";
-    final String CONTRASEÑA = "1994";
+    final String CONTRASEÑA = "root";
 
     @Override
     public Connection crearConexion() throws SQLException {

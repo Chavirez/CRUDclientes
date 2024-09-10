@@ -9,7 +9,6 @@ import Entidades.clienteEntidad;
 import Persistencia.ClientesDAO;
 import Persistencia.ConexionBD;
 import Persistencia.PersistenciaException;
-import Negocio.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
