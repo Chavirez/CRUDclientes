@@ -4,21 +4,22 @@
  */
 package Presentacion;
 
-import DTOs.guardarClienteDTO;
+import DTOs.clienteDTO;
 import Persistencia.ClientesDAO;
 import Persistencia.ConexionBD;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
  * @author santi
  */
-public class frmACliente extends javax.swing.JFrame {
+public class FrmEliminarCliente extends javax.swing.JFrame {
 
     /**
      * Creates new form frmACliente
      */
-    public frmACliente() {
+    public FrmEliminarCliente() {
         initComponents();
     }
 
@@ -32,14 +33,10 @@ public class frmACliente extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTituloVentana = new javax.swing.JLabel();
-        txtNombres = new javax.swing.JTextField();
-        lblNombres = new javax.swing.JLabel();
-        txtAPaterno = new javax.swing.JTextField();
-        lblAPaterno = new javax.swing.JLabel();
-        txtAMaterno = new javax.swing.JTextField();
-        lblAMaterno = new javax.swing.JLabel();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        txtID = new javax.swing.JTextField();
+        lblID = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -47,13 +44,7 @@ public class frmACliente extends javax.swing.JFrame {
 
         lblTituloVentana.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         lblTituloVentana.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTituloVentana.setText("Agregar Cliente");
-
-        lblNombres.setText("Nombre(s)*");
-
-        lblAPaterno.setText("Apellido Paterno*");
-
-        lblAMaterno.setText("Apellido Materno*");
+        lblTituloVentana.setText("Eliminar Cliente");
 
         btnAceptar.setText("Aceptar");
         btnAceptar.addActionListener(new java.awt.event.ActionListener() {
@@ -69,7 +60,9 @@ public class frmACliente extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("(*) Significa campo obligatorio");
+        lblID.setText("ID*");
+
+        jLabel1.setText("(*) Significa campos obligatorios");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -79,18 +72,14 @@ public class frmACliente extends javax.swing.JFrame {
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
+                    .addComponent(lblID)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                             .addComponent(btnCancelar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 216, Short.MAX_VALUE)
                             .addComponent(btnAceptar))
-                        .addComponent(lblTituloVentana, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(lblAMaterno, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblAPaterno, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtNombres, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtAPaterno, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtAMaterno, javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(lblNombres, javax.swing.GroupLayout.Alignment.LEADING)))
+                        .addComponent(lblTituloVentana, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtID)))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -99,20 +88,12 @@ public class frmACliente extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(lblTituloVentana, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lblNombres)
+                .addComponent(lblID)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblAPaterno)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAPaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(lblAMaterno)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtAMaterno, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAceptar)
                     .addComponent(btnCancelar))
@@ -123,10 +104,8 @@ public class frmACliente extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-        this.txtNombres.setText("");
-        this.txtAPaterno.setText("");
-        this.txtAMaterno.setText("");
         this.dispose();
 
         FrmCrud frmCrud = new FrmCrud();
@@ -134,38 +113,43 @@ public class frmACliente extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnCancelarActionPerformed
 
+
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
 
-        String nombres = txtNombres.getText();
-        String apellidoPaterno = txtAPaterno.getText();
-        String apellidoMaterno = txtAMaterno.getText();
+        int id = Integer.parseInt(txtID.getText());
+        int response = JOptionPane.showConfirmDialog(this,
+                "¿Estás seguro que deseas eliminar al cliente con el id: " + id
+                + "?",
+                "Confirmación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.QUESTION_MESSAGE);
 
-        try {
-            guardarClienteDTO cliente = new guardarClienteDTO();
-            cliente.setNombres(nombres);
-            cliente.setaPaterno(apellidoPaterno);
-            cliente.setaMaterno(apellidoMaterno);
+        if (response == JOptionPane.YES_OPTION) {
+            try {
+                clienteDTO cliente = new clienteDTO();
+                cliente.setId(id);
 
-            ConexionBD conexion = new ConexionBD();
-            ClientesDAO clientesBD = new ClientesDAO(conexion);
-            clientesBD.guardarCliente(cliente);
+                ConexionBD conexion = new ConexionBD();
+                ClientesDAO clientesBD = new ClientesDAO(conexion);
+                clientesBD.eliminarCliente(cliente);
 
-            JOptionPane.showMessageDialog(this, "El cliente " + nombres + " "
-                    + apellidoPaterno + " " + apellidoMaterno
-                    + " Se ha agregado correctamente.", "Success",
-                    JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "El cliente se ha eliminado correctamente.",
+                        "Success",
+                        JOptionPane.INFORMATION_MESSAGE);
 
-            FrmCrud frmCrud = new FrmCrud();
-            frmCrud.setVisible(true);
-            this.dispose();
+                FrmCrud frmCrud = new FrmCrud();
+                frmCrud.setVisible(true);
+                this.dispose();
 
-        } catch (Exception e) {
-            System.out.println("ERROR: " + e);
-            JOptionPane.showMessageDialog(this,
-                    "Ocurrio un error al agregar el cliente: " + e,
-                    "ERROR de logica", JOptionPane.ERROR_MESSAGE);
-            this.dispose();
+            } catch (Exception e) {
+                System.out.println("ERROR: " + e);
+                JOptionPane.showMessageDialog(this,
+                        "Ocurrio un error al editar el cliente: " + e,
+                        "ERROR de logica", JOptionPane.ERROR_MESSAGE);
+                this.dispose();
+            }
         }
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
 
@@ -173,12 +157,10 @@ public class frmACliente extends javax.swing.JFrame {
     private javax.swing.JButton btnAceptar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel lblAMaterno;
-    private javax.swing.JLabel lblAPaterno;
-    private javax.swing.JLabel lblNombres;
+    private javax.swing.JLabel lblID;
     private javax.swing.JLabel lblTituloVentana;
-    private javax.swing.JTextField txtAMaterno;
-    private javax.swing.JTextField txtAPaterno;
-    private javax.swing.JTextField txtNombres;
+    private javax.swing.JTextField txtID;
     // End of variables declaration//GEN-END:variables
+    private Timer temporizador;
+
 }

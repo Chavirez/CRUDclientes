@@ -63,12 +63,14 @@ public class ClientesDAO implements IClientesDAO {
 
             Connection conexion = this.conexionBD.crearConexion();
 
-            String codigoSQL = "UPDATE clientes \n"
-                    + "SET\n"
-                    + "nombres = ?,\n"
-                    + "apellidoPaterno = ?,\n"
-                    + "apellidoMaterno = ?,\n"
-                    + "WHERE idcliente = ?;";
+            String codigoSQL = """
+                               UPDATE clientes
+                               SET
+                                nombres = ?,
+                                apellidoPaterno = ?,
+                                apellidoMaterno = ?
+                               WHERE idcliente = ?;
+                               """;
             PreparedStatement preparedStatement = conexion.prepareStatement(codigoSQL);
             preparedStatement.setString(1, cliente.getNombres());
             preparedStatement.setString(2, cliente.getaPaterno());

@@ -28,19 +28,21 @@
               <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                      <Group type="102" attributes="0">
+                  <Component id="lblID" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                      <Component id="lblNombres" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtAPaterno" pref="364" max="32767" attributes="0"/>
+                      <Group type="102" alignment="1" attributes="0">
                           <Component id="btnCancelar" min="-2" max="-2" attributes="0"/>
                           <EmptySpace pref="216" max="32767" attributes="0"/>
                           <Component id="btnAceptar" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <Component id="lblTituloVentana" alignment="0" max="32767" attributes="0"/>
                       <Component id="lblAMaterno" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblAPaterno" alignment="0" min="-2" max="-2" attributes="0"/>
-                      <Component id="txtNombres" alignment="0" max="32767" attributes="0"/>
-                      <Component id="txtAPaterno" alignment="0" max="32767" attributes="0"/>
                       <Component id="txtAMaterno" alignment="0" max="32767" attributes="0"/>
-                      <Component id="lblNombres" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="lblAPaterno" alignment="0" min="-2" max="-2" attributes="0"/>
+                      <Component id="txtNombres" alignment="0" pref="364" max="32767" attributes="0"/>
+                      <Component id="txtID" alignment="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace pref="31" max="32767" attributes="0"/>
@@ -53,6 +55,10 @@
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Component id="lblTituloVentana" min="-2" pref="39" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
+              <Component id="lblID" min="-2" max="-2" attributes="0"/>
+              <EmptySpace max="-2" attributes="0"/>
+              <Component id="txtID" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="lblNombres" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="txtNombres" min="-2" max="-2" attributes="0"/>
@@ -66,7 +72,7 @@
               <Component id="txtAMaterno" min="-2" max="-2" attributes="0"/>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="30" max="32767" attributes="0"/>
+              <EmptySpace pref="35" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnAceptar" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="btnCancelar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -83,7 +89,7 @@
           <Font name="Segoe UI" size="18" style="1"/>
         </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Agregar Cliente"/>
+        <Property name="text" type="java.lang.String" value="Editar Cliente"/>
       </Properties>
     </Component>
     <Component class="javax.swing.JTextField" name="txtNombres">
@@ -123,9 +129,16 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnCancelarActionPerformed"/>
       </Events>
     </Component>
+    <Component class="javax.swing.JTextField" name="txtID">
+    </Component>
+    <Component class="javax.swing.JLabel" name="lblID">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="ID*"/>
+      </Properties>
+    </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="(*) Significa campo obligatorio"/>
+        <Property name="text" type="java.lang.String" value="(*) Significa campos obligatorios"/>
       </Properties>
     </Component>
   </SubComponents>
